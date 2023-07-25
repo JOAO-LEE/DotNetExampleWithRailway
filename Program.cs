@@ -7,13 +7,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var port = builder.Configuration["PORT"];
+
+builder.WebHost.UseUrls($"http://*:{port};http://localhost:3000");
+
 var app = builder.Build();
-app.MapGet("/",()=>"Hello world 🥂");
+app.MapGet("/", () => "Hello world 🥂");
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+  app.UseSwagger();
+  app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
